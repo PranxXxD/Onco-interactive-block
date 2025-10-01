@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KEYTRUDA Cost Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Header -->
+
+      <div class="input-box-div">
+        <div>
+          <div class="drug-box-title">
+            <h3>Drug Cost</h3>
+          </div>
+          <div class="drug-info-box">
+            <input id="drugCost" class="drugCost insur-checker" type="number" placeholder="Enter Drug Cost" />
+          </div>
+        </div>
+        <div>
+          <div class="drug-box-title">
+            <h3>No of Cycle</h3>
+          </div>
+          <div class="cycle-info-box">
+            <input id="cycle" class="cycle insur-checker" type="number" placeholder="Enter Cycle Count" />
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Main Layout -->
+      <div class="main-layout">
+        <!-- Left Panel -->
+        <aside class="left-panel">
+          <div class="insurance-box-title">
+            <h3>Private health insurance status</h3>
+          </div>
+          <div class="insurance-status-box">
+
+            <div class="insurance-exisitance-box">
+              <label>
+                <input type="radio" name="insuranceStatus" class="status insur-checker" value="yes" /> Yes</label>
+              <label><input type="radio" name="insuranceStatus" class="status insur-checker" value="no" />No</label>
+            </div>
+
+
+            <hr>
+            <div class="added-check">
+              <div class="insurance-type-title">
+                <h3>Type of Private health insurance</h3>
+              </div>
+              <div class="insurance-type-box">
+                <label><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="cancer"
+                    id="cancer" />Cancer Insurance <span class="smallFont">(diagnosis benefit)</span>
+                </label>
+                <label><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="indemnity"
+                    id="indemnity" />indemnity
+                  insurance <span class="smallFont">(reimbursnement type)</span></label>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="income-drop-box">
+
+            <div class="income-range">
+              <h3>중위소득</h3>
+            </div>
+
+            <div class="medical-expense-div">
+              <p>2025 Catastrophic Medical Expense Income standard</p>
+            </div>
+          </div>
+          <div class="income-radio-btn-div">
+            <div id="income" class="income-radio-btn-subdiv">
+              <div class="radio-btn-div-one">
+                <label><input type="radio" class="income insur-checker" name="income-range" value="below50" id="fifty-percent" /> ≤50%
+                </label>
+                <label><input type="radio" class="income insur-checker" name="income-range" value="50to100"
+                    id="fifty-hunder-percent" />>50% - ≤100%</label>
+              </div>
+              <div class="radio-btn-div-two">
+                <label><input type="radio" class="income insur-checker" name="income-range" value="100to200"
+                    id="hunder-twohundered-percent" />>100% - ≤200%</label>
+                <label><input type="radio" class="income insur-checker" name="income-range" value="above200"
+                    id="above-twohundered-percent" />>200%</label>
+              </div>
+            </div>
+          </div>
+
+
+
+
+          <!-- <select id="income">
+            <option value="">Select</option>
+            <option value="below50">50% 이하</option>
+            <option value="50to100">50% ~100% 이하</option>
+            <option value="100to200">100% ~200% 이하</option>
+            <option value="above200">~200% 초과</option>
+          </select> -->
+        </aside>
+
+
+
+
+
+
+
+
+        <!-- Center Panel -->
+        <section class="right-panel">
+          <div>
+            <div class="medical-expense-title">
+              <h3>Medication expenses </h3>
+            </div>
+            <div class="medical-info-box">
+              <div class="medical-sub-div">
+                <div class="bar-area">
+                  <!-- <div class="bar-fill"></div> -->
+
+                  <div id="bar-indemnity" class="bar-segment"></div>
+                  <div id="bar-median" class="bar-segment"></div>
+                  <div id="bar-outofpocket" class="bar-segment"></div>
+
+                </div>
+                <div class="bar-ballon-div">
+                  <div class="bar-ballon def-sum">
+
+                  </div>
+
+                  <span>(KRW)</span>
+                  <div class="bar-ballon top-ballon">
+
+                  </div>
+                  <div class="bar-ballon center-ballon">
+
+                  </div>
+                  <div class="bar-ballon bottom-ballon">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </section>
+
+
+      </div>
+
+      <!-- <h3>약제비 분포</h3>
+      <div id="totalCost" class="bar total">전체 약제비: </div>
+      <div class="bar insurance">보험형 지원: </div>
+      <div class="bar support">자부담/본인부담 지원: </div>
+      <div id="outOfPocket" class="bar personal">본인 부담 비율: </div>
+      <div id="breakdown" class="mt-4 text-sm text-gray-700"></div> -->
+
+      <!-- Footer -->
+      <footer class="footer">
+        <button id="viewCasesBtn">대표 환자 사례 보러가기</button>
+        <button id="resetBtn">RESET</button>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+
+</html>
