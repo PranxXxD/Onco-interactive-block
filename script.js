@@ -80,20 +80,20 @@ insurSelector.forEach(el => {
       addedArea.classList.remove("disabled");
       updateInsuranceSummary({
         status: selectedStatus,
-        type : "N/A",
+        type: "N/A",
         incomeLevel: selectedIncome,
         totalCost: drugsum
       });
     }
 
- 
+
     if (selectedStatus === "yes") {
-    addedArea.classList.remove("disabled");
+      addedArea.classList.remove("disabled");
 
       const selectedType = Array.from(
         document.querySelectorAll('input[name="insuranceType"]:checked')
       ).map(input => input.value);
-    
+
       updateInsuranceSummary({
         status: selectedStatus,
         type: selectedType,
@@ -103,7 +103,7 @@ insurSelector.forEach(el => {
     }
 
 
-  
+
 
 
 
@@ -209,6 +209,7 @@ function calculateIndemnityOnly(totalCost) {
   // Calculate 70% of total cost
   let indemnityCoverage = totalCost * 0.7;
 
+
   // Apply maximum cap of 30,000,000 KRW
   if (indemnityCoverage > 30000000) {
     indemnityCoverage = 30000000;
@@ -232,16 +233,31 @@ function calculateCancerANDindemnity(totalCost) {
   let cancerCoverage = totalCost - 30000000
   let indemnityCoverage = totalCost * 0.7;
 
-  let cancerplusindemnity = cancerCoverage - indemnityCoverage
+  let cancerplusindemnity = indemnityCoverage - cancerCoverage
 
+
+  // let outofpocketofCancerandindemnity = cancerplusindemnity
   console.log("cancerplusindemnity", cancerplusindemnity)
   return { cancerplusindemnity }
 
 }
 
 function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
+  // console.log("totalCost", totalCost)
   // Calculate indemnity coverage
-  let result = { totalCost, incomeLevel };
+
+  const catastrophicmedicalExp = 50000000;
+  const outofpocketMoney =  incomeLevel === "above200" ?  totalCost : catastrophicmedicalExp - totalCost ;
+
+  console.log("outOfPocketMoney", outofpocketMoney)
+  // Ensure no negative values
+  const safeCatastrophic = Math.min(catastrophicmedicalExp, totalCost);
+  // const safeOutOfPocket = Math.max(outofpocketMoney, 0);
+
+  // console.log("safeOutOfPocket", safeOutOfPocket)
+
+
+
   const indemnityresult = calculateIndemnityOnly(drugsum);
 
 
@@ -249,6 +265,9 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
   const cancerValue = calculateCancerOnly(totalCost)
 
   // } 
+
+
+  const cancerandindemnity = calculateCancerANDindemnity(totalCost)
 
 
 
@@ -263,30 +282,58 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
 
   const medianSupportforcancer = cancerValue.cancerCoverage * medianSupportRate
 
+  const medianSupportforcancerandindemnity = cancerandindemnity.cancerplusindemnity * medianSupportRate
 
-  console.log("medianSupportforcancer", medianSupportforcancer)
 
-  console.log("medianSupport", medianSupportforindemnity)
+  console.log("medianSupportforcancerandindemnity", medianSupportforcancerandindemnity)
 
-  const finalOutOfPocketOne = result.totalCost - indemnityresult.outOfPocket - medianSupportforindemnity;
+  // console.log("medianSupport", medianSupportforindemnity)
 
-  const finalOutOfPocketTwo = result.totalCost - cancerValue.CanceroutOfPocket - medianSupportforcancer;
+  const finalOutOfPocketOne = totalCost - indemnityresult.outOfPocket - medianSupportforindemnity;
+
+  const finalOutOfPocketTwo = totalCost - cancerValue.CanceroutOfPocket - medianSupportforcancer;
+
+  const finalOutOfPocketThree = totalCost - cancerandindemnity.cancerplusindemnity - medianSupportforcancer;
+
+  console.log("finalOutOfPocketThree", finalOutOfPocketThree)
 
 
 
   let indemnityPercent = Math.round((indemnityresult.indemnityCoverage / totalCost) * 100);
   let cancerPercent = Math.round((cancerValue.cancerCoverage / totalCost) * 100);
 
-  let medianPercentOne = Math.round((medianSupportforindemnity / result.totalCost) * 100);
-  let medianPercentTwo = Math.round((medianSupportforcancer / result.totalCost) * 100);
-  let outOfPocketPercentOne = Math.round((finalOutOfPocketOne / result.totalCost) * 100);
+  let cancerandindemnityPercent = Math.round((cancerandindemnity.cancerplusindemnity / totalCost) * 100);
 
-  let outOfPocketPercentTwo = Math.round((finalOutOfPocketTwo / result.totalCost) * 100);
+  console.log("calculateCancerANDindemnity", cancerandindemnityPercent)
+
+
+
+  let medianPercentOne = Math.round((medianSupportforindemnity / totalCost) * 100);
+  let medianPercentTwo = Math.round((medianSupportforcancer / totalCost) * 100);
+
+  let medianPercentThree = Math.round((medianSupportforcancerandindemnity / totalCost) * 100);
+
+  console.log("medianPercentThree", medianPercentThree)
+
+
+
+  let outOfPocketPercentOne = Math.round((finalOutOfPocketOne /totalCost) * 100);
+
+  let outOfPocketPercentTwo = Math.round((finalOutOfPocketTwo / totalCost) * 100);
+
+  let outOfPocketPercentThree = Math.round((finalOutOfPocketThree / totalCost) * 100);
+
+
+  console.log("outOfPocketPercentThree", outOfPocketPercentThree)
 
   // Ensure total does not exceed 100%
   let totalPercentOne = indemnityPercent + medianPercentOne + outOfPocketPercentOne;
 
   let totalPercentTwo = cancerPercent + medianPercentTwo + outOfPocketPercentTwo
+
+  let totalPercentThree = cancerandindemnityPercent + medianPercentThree + outOfPocketPercentThree
+
+  console.log("totalPercentThree", totalPercentThree)
 
 
   if (totalPercentOne > 100) {
@@ -306,6 +353,27 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
   }
 
 
+  if (totalPercentThree > 100) {
+    const scale = 100 / totalPercentThree;
+    medianPercentThree = Math.round(medianPercentThree * scale);
+    outOfPocketPercentThree = 100 - medianPercentThree - cancerandindemnityPercent;
+  }
+
+  // Calculate percentages
+  const catastrophicPercent = Math.round(( safeCatastrophic / totalCost) * 100);
+
+  console.log("catastrophicPercent",catastrophicPercent)
+
+  const outofPocketPercent = Math.round((outofpocketMoney / totalCost) * 100)
+
+  console.log("outofPocketPercent",outofPocketPercent)
+
+  const finalcatastrophicPercent = 100 - outofPocketPercent 
+  
+
+
+
+
   if (status === "no") {
     addedArea.classList.add("disabled");
     topBalloon.innerHTML = `
@@ -313,11 +381,15 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
           사보험 지원<br>0원 (0%)
         </p>
       `;
+    // Update bottom balloon (final out-of-pocket)
+     bottomBalloon.innerHTML = `
+    <p class="def-sum">
+      본인 부담 비율<br>${outofpocketMoney.toLocaleString()}원 (${outofPocketPercent}%)
+    </p>
+  `;
   }
 
-  if ((status === "no") && (type === "indemnity") && (type === "cancer")) {
-    return calculateCancerANDindemnity(totalCost)
-  }
+
 
 
 
@@ -369,81 +441,88 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
     console.log("cancerPocket", outOfPocketPercentTwo)
   }
 
-  middleIcome(status, incomeLevel, medianPercentOne, medianPercentTwo, medianSupportforindemnity, medianSupportforcancer)
+  middleIcome(status, incomeLevel, medianPercentOne, medianPercentTwo, medianSupportforindemnity, medianSupportforcancer, medianSupportforcancerandindemnity, medianPercentThree, finalcatastrophicPercent, catastrophicmedicalExp, totalCost)
 
 
 
   // Animate bar area
-  animateVerticalBar(indemnityPercent, medianPercentOne, medianPercentTwo, outOfPocketPercentOne, outOfPocketPercentTwo)
+  animateVerticalBar(indemnityPercent, medianPercentOne, medianPercentTwo, outOfPocketPercentOne, outOfPocketPercentTwo, medianPercentThree)
   // barAreaBg2.style.background = "#bddba5";
   // barAreaBg1.style.background = "#eb6100";
   bottomBalloon.style.background = "#eb6100";
 }
 
 
-function middleIcome(status,incomelevel, medianPercentOne, medianPercentTwo, medianSupportforindemnity, medianSupportforcancer) {
-  if (incomelevel === "below50") {
-    // Update center balloon (median income support)
-    centerBalloon.innerHTML = `
+function middleIcome(status, incomelevel, medianPercentOne, medianPercentTwo, medianSupportforindemnity, medianSupportforcancer, medianSupportforcancerandindemnity, medianPercentThree, finalcatastrophicPercent, catastrophicmedicalExp, totalCost) {
+
+  if (status === "yes") {
+    if (incomelevel === "below50") {
+      // Update center balloon (median income support)
+      centerBalloon.innerHTML = `
    <p class="def-sum">
-     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString}원 (${medianPercentOne || medianPercentTwo}%)
+     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
    </p> 
  `;
-  } if (incomelevel === "50to100") {
-    // Update center balloon (median income support)
-    centerBalloon.innerHTML = `
+    } if (incomelevel === "50to100") {
+      // Update center balloon (median income support)
+      centerBalloon.innerHTML = `
    <p class="def-sum">
-     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
    </p> 
  `;
-  } if (incomelevel === "100to200") {
-    // Update center balloon (median income support)
-    centerBalloon.innerHTML = `
+    } if (incomelevel === "100to200") {
+      // Update center balloon (median income support)
+      centerBalloon.innerHTML = `
    <p class="def-sum">
-     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
    </p> 
  `;
-  } if (incomelevel === "above200") {
-    // Update center balloon (median income support)
-    centerBalloon.innerHTML = `
+    } if (incomelevel === "above200") {
+      // Update center balloon (median income support)
+      centerBalloon.innerHTML = `
    <p class="def-sum">
-     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+     재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
    </p> 
  `;
+    }
+
   }
 
 
-
   if (status === "no") {
+
+    console.log("status no")
+
     if (incomelevel === "below50") {
       // Update center balloon (median income support)
       centerBalloon.innerHTML = `
      <p class="def-sum">
-       재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString}원 (${medianPercentOne || medianPercentTwo}%)
+       재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
      </p> 
    `;
     } if (incomelevel === "50to100") {
       // Update center balloon (median income support)
       centerBalloon.innerHTML = `
      <p class="def-sum">
-       재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+       재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
      </p> 
    `;
     } if (incomelevel === "100to200") {
       // Update center balloon (median income support)
       centerBalloon.innerHTML = `
      <p class="def-sum">
-       재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+       재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
      </p> 
    `;
     } if (incomelevel === "above200") {
       // Update center balloon (median income support)
       centerBalloon.innerHTML = `
      <p class="def-sum">
-       재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
+       재난적의료비 지원<br>${0}원 (${0}%)
      </p> 
    `;
     }
+
   }
 }
 // function calculateMedianIcom (outOfPocketMoney){
