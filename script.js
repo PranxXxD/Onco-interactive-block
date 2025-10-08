@@ -1,3 +1,4 @@
+
 const drugCostInput = document.querySelector(".drugCost");
 const cycleInput = document.querySelector(".cycle");
 const defaultValue = document.querySelector('.def-sum')
@@ -29,7 +30,7 @@ addedArea.classList.add('disabled')
 let costValue = 0;
 let cycleValue = 0;
 let drugsum = 0;
-let medianIcome = 0;
+// let medianIcome = 0;
 
 // Unified function to handle both inputs
 function updateDrugCostSummary() {
@@ -167,9 +168,9 @@ insurSelector.forEach(el => {
 // }
 
 
-function animateVerticalBar(indemnityPercent, medianPercent, outOfPocketPercent) {
+ function animateVerticalBar(indemnityPercent, medianPercent, outOfPocketPercent, catastrophicPercent,outofPocketPercent ) {
 
-  console.log(indemnityPercent, medianPercent, outOfPocketPercent)
+  // console.log(indemnityPercent, medianPercent, outOfPocketPercent, catastrophicPercent, outofPocketPercent)
 
   // Apply heights to each segment
 
@@ -186,11 +187,13 @@ function animateVerticalBar(indemnityPercent, medianPercent, outOfPocketPercent)
   });
 
   // Apply final heights
-  indemnityBar.style.height = `${indemnityPercent}%`;
-  medianBar.style.height = `${medianPercent}%`;
+  indemnityBar.style.height = `${indemnityPercent || 0}%`;
+  medianBar.style.height = `${medianPercent || 0}%`;
   outOfPocketBar.style.height = `${outOfPocketPercent}%`;
 
 }
+
+
 
 
 function calculateCancerOnly(totalCost) {
@@ -446,7 +449,21 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
 
 
   // Animate bar area
-  animateVerticalBar(indemnityPercent, medianPercentOne, medianPercentTwo, outOfPocketPercentOne, outOfPocketPercentTwo, medianPercentThree)
+  animateVerticalBar(indemnityPercent, medianPercentOne, medianPercentTwo, outOfPocketPercentOne, outOfPocketPercentTwo, medianPercentThree, outofPocketPercent,catastrophicPercent) 
+
+  
+// Shared object to store animation values
+window.barAnimationValues = {
+  indemnityPercent,
+  medianPercentOne,
+  outOfPocketPercentOne,
+  catastrophicPercent,
+  outofPocketPercent,
+  costValue,
+  cycleValue
+};
+
+
   // barAreaBg2.style.background = "#bddba5";
   // barAreaBg1.style.background = "#eb6100";
   bottomBalloon.style.background = "#eb6100";

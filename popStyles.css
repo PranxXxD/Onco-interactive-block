@@ -1,0 +1,158 @@
+/* Button */
+#openModalBtn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Modal overlay */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Hide modal */
+.hidden {
+  display: none;
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Card layout */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background-color: #fafafa;
+  padding: 1rem;
+  border: 1px solid #68b64a;
+  border-radius: 8px;
+  flex: 1 1 calc(50% - 1rem);
+  min-width: 100px;
+}
+
+.profile-img-div img {
+  border-radius: 50%;
+}
+
+/* Cost breakdown */
+.cost-breakdown {
+  position: relative;
+  margin-top: 2rem;
+  background-color: #fafafa;
+  border: 1px solid #007e41;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.bar-box{
+    text-align: center;
+    position: absolute;
+    top: 0;
+    min-width: 500px;
+    height: 30px;
+    background: #007e41;
+    border-radius: 0 0 1rem 1rem;
+    left: 50%;
+    color: #fff;
+    transform: translate(-50%, 0%);
+    padding-top: 6px;
+}
+
+.bar-graph-div{
+    display: flex;
+    margin: 30px 0px 50px 0px;
+}
+
+.popup-bar-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #acd494;
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+  background: #68b64a;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+
+.Modal-bar-segment {
+  height: 100%;
+  /* transition: height 1.2s ease-in-out; */
+  animation: fillBarWidth 1.2s ease-out forwards;
+}
+
+#Modal-bar-indemnity {
+  background-color: #fafafa; /* Orange */
+}
+#Modal-bar-median {
+  background-color: #bddba5; /* Green */
+}
+#Modal-bar-outofpocket {
+  background-color: #eb6100; /* Gray */
+}
+
+/* 
+.cyle-value{
+    position: relative;
+    background: #007e41;
+} */
+
+@keyframes fillBarWidth {
+  0% {
+    width: 0%;
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Responsive */
+@media (max-width: 600px) {
+  .card {
+    flex: 1 1 100%;
+  }
+
+  .modal-content {
+    padding: 1rem;
+  }
+}

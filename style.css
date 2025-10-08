@@ -3,6 +3,7 @@ body {
   background-color: #fafafa;
   margin: 0;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .container {
@@ -310,11 +311,10 @@ select {
 }
 
 /* .dynamic-bar-bg { */
-  /* animation: fillBar 1s .5s forwards; */
-  /* height: 0; */
-  /* transition: height 0.8ms ease-in-out; */
+/* animation: fillBar 1s .5s forwards; */
+/* height: 0; */
+/* transition: height 0.8ms ease-in-out; */
 /* } */
-
 
 .bar-segment {
   width: 100%;
@@ -322,6 +322,7 @@ select {
   animation: fillBar 1.2s ease-out forwards;
 }
 
+x
 #bar-indemnity {
   background-color: #fafafa; /* Orange */
 }
@@ -351,7 +352,6 @@ select {
 
 /* Keyframes for color transition and height animation */
 @keyframes fillBar {
- 
   0% {
     height: 0%;
     opacity: 0.5;
@@ -359,7 +359,6 @@ select {
   100% {
     opacity: 1;
   }
-
 }
 
 
@@ -402,12 +401,14 @@ select {
   opacity: 0.3;
 }
 
-.resetBtn{
+.resetBtn {
   background: #68b64a;
 }
 
+
+
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) and (orientation: landscape) {
   .drug-info-box input,
   .cycle-info-box input {
     font-size: 14px;
@@ -421,6 +422,27 @@ select {
 
   .radio-label input[type="radio"] {
     transform: scale(1);
+  }
+
+  .radio-btn-div-one, .radio-btn-div-two{
+    font-size: x-small;
+  }
+
+  .medical-sub-div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+
+  .medical-sub-div .bar-area {
+    width: 50px;
+  }
+
+  .bar-ballon{
+    width: 100px;
+  }
+
+  .def-sum{
+    font-size: x-small;
   }
 }
 
@@ -472,7 +494,12 @@ select {
     gap: 5px;
   }
 
-  .def-sum{
+  .def-sum {
     font-size: 12px;
+  }
+
+  .footer button {
+    padding: 10px;
+    font-size: small;
   }
 }
