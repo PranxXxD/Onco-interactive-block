@@ -322,15 +322,14 @@ select {
   animation: fillBar 1.2s ease-out forwards;
 }
 
-x
 #bar-indemnity {
-  background-color: #fafafa; /* Orange */
+  background-color: #fafafa; 
 }
 #bar-median {
-  background-color: #bddba5; /* Green */
+  background-color: #bddba5; 
 }
 #bar-outofpocket {
-  background-color: #eb6100; /* Gray */
+  background-color: #eb6100; 
 }
 /* .bar-area-vertical {
   width: 40px;
