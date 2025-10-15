@@ -212,10 +212,10 @@ function animateVerticalBar(BoxOne, BoxTwo, BoxThree) {
 
 function getIncomeSupportRate(level) {
   const rates = {
-    "below50": 0.8,
-    "50to100": 0.7,
-    "100to200": 0.6,
-    "above200": 0.5
+    "below50": 0.7,
+    "50to100": 0.6,
+    "100to200": 0.5,
+    "above200": 0.0
   };
   return rates[level] || 0;
 }
@@ -237,7 +237,7 @@ function calculateCancerOnly({ status, incomeLevel, totalCost }) {
 
   console.log("medianSupportRate", medianSupportRate)
 
-  const medianSupportforcancer =  CancerremaingValue * medianSupportRate;
+  const medianSupportforcancer = CancerremaingValue * medianSupportRate;
   console.log("medianSupportforcancer", medianSupportforcancer)
 
   let medianPercentTwo = Math.round((medianSupportforcancer / totalCost) * 100);
@@ -344,33 +344,34 @@ function calculateCancerANDindemnity({ status, incomeLevel, totalCost }) {
   let indemnityCoverage = totalCost * 0.7;
   // let indemnityremaingValue = totalCost - indemnityCoverage;
 
-  let cancerplusindemnityRemainingAmt = 0
 
   if (indemnityCoverage > 50000000) {
     indemnityCoverage = 50000000;
   }
 
   let cancerplusindemnity = cancerCoverage + indemnityCoverage;
+  let cancerplusindemnityRemainingAmt = totalCost - cancerplusindemnity
+
   let cancerandindemnityPercent = Math.round((cancerplusindemnity / totalCost) * 100);
 
   const medianSupportRate = getIncomeSupportRate(incomeLevel);
-  const medianSupportforcancerandindemnity = cancerplusindemnityRemainingAmt * medianSupportRate;
+  const medianSupportforcancerandindemnity = cancerplusindemnity < totalCost ? cancerplusindemnityRemainingAmt * medianSupportRate : 0;
 
 
-  console.log("medianSupportforcancerandindemnity",medianSupportforcancerandindemnity)
+  console.log("medianSupportforcancerandindemnity", medianSupportforcancerandindemnity)
 
-  // let medianPercentThree = Math.round((medianSupportforcancerandindemnity / totalCost) * 100);
+  let medianPercentThree = Math.round((medianSupportforcancerandindemnity / totalCost) * 100);
 
-  let medianPercentThree = 0
-  // const finalOutOfPocketThree = totalCost - cancerplusindemnity - medianSupportforcancerandindemnity;
+  // let medianPercentThree = 0
+  const finalOutOfPocketThree =  cancerplusindemnity < totalCost ? cancerplusindemnityRemainingAmt - medianSupportforcancerandindemnity : 0;
 
-  const finalOutOfPocketThree = 0
+  // const finalOutOfPocketThree = 0
 
   console.log("finalOutOfPocketThree", finalOutOfPocketThree)
 
-  // let outOfPocketPercentThree = Math.round((finalOutOfPocketThree / totalCost) * 100);
-  
-  let outOfPocketPercentThree = 0
+  let outOfPocketPercentThree = Math.round((finalOutOfPocketThree / totalCost) * 100);
+
+  // let outOfPocketPercentThree = 0
 
   let totalPercentThree = cancerandindemnityPercent + medianPercentThree + outOfPocketPercentThree;
 
@@ -383,16 +384,16 @@ function calculateCancerANDindemnity({ status, incomeLevel, totalCost }) {
 
   middleIcome(
     status,
-      incomeLevel,
-      null,
-      null,
-      null,
-      null,
-      medianSupportforcancerandindemnity,
-      medianPercentThree,
-      null,
-      totalCost
-    );
+    incomeLevel,
+    null,
+    null,
+    null,
+    null,
+    medianSupportforcancerandindemnity,
+    medianPercentThree,
+    null,
+    totalCost
+  );
   animateVerticalBar(cancerandindemnityPercent, medianPercentThree, outOfPocketPercentThree);
 
   window.barAnimationValues = {
@@ -414,19 +415,21 @@ function calculateCancerANDindemnity({ status, incomeLevel, totalCost }) {
 function noInsurance({ status, incomeLevel, totalCost }) {
   const catastrophicmedicalExp = 50000000;
 
-  const remainingAmt =  50000000 - totalCost 
+  const remainingAmt = 50000000 - totalCost
 
   console.log("remainingAmt", remainingAmt)
-  
+
   // const safeCatastrophic = Math.min(catastrophicmedicalExp, totalCost);
 
   const noInsurancemedianSupportRate = getIncomeSupportRate(incomeLevel);
 
-  const noInsurancemedianSupportValue =  catastrophicmedicalExp * noInsurancemedianSupportRate;
+  const noInsurancemedianSupportValue = totalCost < catastrophicmedicalExp ? totalCost * noInsurancemedianSupportRate : catastrophicmedicalExp;
 
-  const outofpocketMoney = incomeLevel === "above200" ? totalCost :  totalCost - noInsurancemedianSupportValue;
+  console.log("noInsurancemedianSupportValue", noInsurancemedianSupportValue)
 
-  console.log("noInsurancemedianSupportValue",noInsurancemedianSupportValue)
+  const outofpocketMoney = incomeLevel === "above200" ? totalCost : totalCost - noInsurancemedianSupportValue;
+
+ 
 
 
 
@@ -449,10 +452,10 @@ function noInsurance({ status, incomeLevel, totalCost }) {
     noInsurancemedianSupportValue,
     catastrophicPercent,
     // finalcatastrophicPercent,
-    
+
   );
 
-  animateVerticalBar(catastrophicPercent, outofPocketPercent);
+  animateVerticalBar(0,catastrophicPercent, outofPocketPercent);
 
   window.barAnimationValues = {
     catastrophicmedicalExp,
@@ -653,7 +656,7 @@ function bindEvents() {
         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
       }
 
-      if (status === "yes" && (types?.includes("cancer") && types?.includes("indemnity")) ) {
+      if (status === "yes" && (types?.includes("cancer") && types?.includes("indemnity"))) {
         addedArea.classList.remove("disabled");
 
         calculateCancerANDindemnity({ status, type: types, incomeLevel, totalCost: total })
@@ -666,7 +669,7 @@ function bindEvents() {
         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
       }
 
-     
+
     });
   });
 }
