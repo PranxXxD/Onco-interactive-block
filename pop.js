@@ -3,13 +3,14 @@ const closeModalBtn = document.getElementById('closeModalBtn');
 const modal = document.getElementById('modal');
 // Open modal
 
-function animateBarInModal(indemnityPercent, medianPercent, outOfPocketPercent, catastrophicPercent, outofPocketPercent) {
+function animateBarInModal(BoxOne,BoxTwo,BoxThree) {
 
+    console.log("popup.js",BoxOne,BoxTwo,BoxThree )
     // console.log("popup.js",indemnityPercent, medianPercent, outOfPocketPercent, catastrophicPercent, outofPocketPercent)
 
-    const indemnityBar = document.getElementById("Modal-bar-indemnity");
-    const medianBar = document.getElementById("Modal-bar-median");
-    const outOfPocketBar = document.getElementById("Modal-bar-outofpocket");
+    const indemnityBarModal = document.getElementById("Modal-bar-indemnity");
+    const medianBarModal = document.getElementById("Modal-bar-median");
+    const outOfPocketBarModal = document.getElementById("Modal-bar-outofpocket");
 
 
 
@@ -22,9 +23,9 @@ function animateBarInModal(indemnityPercent, medianPercent, outOfPocketPercent, 
     });
 
 
-    indemnityBar.style.width = `${indemnityPercent || 0}%`;
-    medianBar.style.width = `${medianPercent || 0}%`;
-    outOfPocketBar.style.width = `${outOfPocketPercent || 0}%`;
+    indemnityBar.style.width = `${BoxOne || 0}%`;
+    medianBar.style.width = `${BoxTwo || 0}%`;
+    outOfPocketBar.style.width = `${BoxThree || 0}%`;
 }
 
 openModalBtn.addEventListener('click', () => {
@@ -36,11 +37,13 @@ openModalBtn.addEventListener('click', () => {
     // Check if values are available
     if (window.barAnimationValues) {
         const {
+            noInsurancemedianSupportValue,
+            catastrophicPercent,
+            outofpocketMoney,
+            outofPocketPercent,
             indemnityPercent,
             medianPercentOne,
             outOfPocketPercentOne,
-            catastrophicPercent,
-            outofPocketPercent,
             costValue,
             cycleValue,
         } = window.barAnimationValues;
@@ -48,10 +51,12 @@ openModalBtn.addEventListener('click', () => {
         const addValues = document.getElementById("cycle-values")
         addValues.innerHTML = `<span>1 cycle 약제비 : ${costValue}원 / 1년 치료 ${cycleValue} cycle 기준</span>`
         // Call animation function with stored values
-        animateBarInModal(
+        animateBarInModal( 
             indemnityPercent,
             medianPercentOne,
             outOfPocketPercentOne,
+            outofpocketMoney,
+            noInsurancemedianSupportValue,
             catastrophicPercent,
             outofPocketPercent
         );
