@@ -50,20 +50,20 @@
 /* Card layout */
 .card-container {
   display: grid;
-  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
   align-items: center;
   place-content: center;
- flex-wrap: wrap;
+  flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
 }
 
 .card {
-    text-align: center;
+  text-align: center;
   background-color: #fafafa;
   padding: 1rem;
   border: 1px solid #68b64a;
-  border-radius: 8px;
+  border-radius: 1rem;
   flex: 1 1 calc(50% - 1rem);
   min-width: 100px;
 }
@@ -98,6 +98,10 @@
 
 .bar-graph-div {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
   margin: 30px 0px 50px 0px;
 }
 
@@ -146,22 +150,65 @@
     opacity: 1;
   }
 }
+
+/* #BoxValues div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+} */
+.tooltip-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.tooltip-box {
+  background-color: #68b64a;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.tooltip-title,
+.tooltip-value {
+  font-size: 12px;
+}
+
+#total-drug-cost{
+  display: flex;
+    width: 100px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+.spanvalue {
+  font-size: 12px;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .modal-content {
-    overflow: hidden;
+    overflow-y: scroll;
   }
   .card-container {
     overflow-x: scroll;
     display: grid;
-    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
     align-items: center;
     place-content: center;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1rem;
   }
- 
+
   .card {
     flex: 1 1 100%;
     text-align: center;
@@ -169,5 +216,23 @@
 
   .modal-content {
     padding: 1rem;
+  }
+
+  .bar-box {
+    min-width: 300px;
+  }
+
+  .bar-box span {
+    font-size: 12px;
+  }
+
+  .spanvalue{
+    font-size: 10px;
+  }
+
+  .tooltip-container {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(150px, 1fr));
+    gap: 12px;
   }
 }

@@ -43,9 +43,9 @@
           <div class="insurance-status-box">
 
             <div class="insurance-exisitance-box">
-              <label>
+              <label class="custom-radio">
                 <input type="radio" name="insuranceStatus" class="status insur-checker" value="yes" /> Yes</label>
-              <label><input type="radio" name="insuranceStatus" class="status insur-checker" value="no" />No</label>
+              <label class="custom-radio"><input type="radio" name="insuranceStatus" class="status insur-checker" value="no" />No</label>
             </div>
 
 
@@ -55,10 +55,10 @@
                 <h3>Type of Private health insurance</h3>
               </div>
               <div class="insurance-type-box">
-                <label><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="cancer"
+                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="cancer"
                     id="cancer" />Cancer Insurance <span class="smallFont">(diagnosis benefit)</span>
                 </label>
-                <label><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="indemnity"
+                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="indemnity"
                     id="indemnity" />indemnity
                   insurance <span class="smallFont">(reimbursnement type)</span></label>
               </div>
@@ -79,16 +79,16 @@
           <div class="income-radio-btn-div">
             <div id="income" class="income-radio-btn-subdiv">
               <div class="radio-btn-div-one">
-                <label><input type="radio" class="income insur-checker" name="income-range" value="below50"
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="below50"
                     id="fifty-percent" /> ≤50%
                 </label>
-                <label><input type="radio" class="income insur-checker" name="income-range" value="50to100"
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="50to100"
                     id="fifty-hunder-percent" />>50% - ≤100%</label>
               </div>
               <div class="radio-btn-div-two">
-                <label><input type="radio" class="income insur-checker" name="income-range" value="100to200"
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="100to200"
                     id="hunder-twohundered-percent" />>100% - ≤200%</label>
-                <label><input type="radio" class="income insur-checker" name="income-range" value="above200"
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="above200"
                     id="above-twohundered-percent" />>200%</label>
               </div>
             </div>
@@ -190,7 +190,7 @@
             <p>Income: 160%</p>
             <p>Support: 가능</p>
           </div>
-
+<!-- 
           <div class="card" role="region" aria-label="Profile C">
             <div class="profile-img-div"><img src="/Assets/avatar/avatar-2.jpg" alt="avatar-2" width="100"/></div>
             <h3>B (50세)</h3>
@@ -219,7 +219,7 @@
             <p>Insurance: 있음</p>
             <p>Income: 160%</p>
             <p>Support: 가능</p>
-          </div>
+          </div> -->
 
           <!-- Add C, D, E similarly -->
         </div>
@@ -234,9 +234,11 @@
               <div id="Modal-bar-indemnity" class="Modal-bar-segment"></div>
               <div id="Modal-bar-median" class="Modal-bar-segment"></div>
               <div id="Modal-bar-outofpocket" class="Modal-bar-segment"></div>
-  
+              
             </div>
+            <div id="total-drug-cost"></div>
           </div>
+          <div class="tooltip-container"></div>
         </div>
       </div>
     </div>

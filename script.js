@@ -33,7 +33,11 @@ const state = {
   cycleValue: 0,
   BoxOne: 0,
   BoxTwo: 0,
-  BoxThree: 0
+  BoxThree: 0,
+  BoxOneValue: 0,
+  BoxTwoValue: 0,
+  BoxThreeValue: 0,
+  TotalDrugCost : 0
 };
 
 function setState(newState) {
@@ -70,8 +74,8 @@ function updateDrugCostSummary() {
   }
 }
 // Attach the unified handler to both inputs
-drugCostInput.addEventListener("input", updateDrugCostSummary);
-cycleInput.addEventListener("input", updateDrugCostSummary);
+// drugCostInput.addEventListener("input", updateDrugCostSummary);
+// cycleInput.addEventListener("input", updateDrugCostSummary);
 
 
 // insurSelector.forEach(el => {
@@ -261,7 +265,7 @@ function calculateCancerOnly({ status, incomeLevel, totalCost }) {
   let medianPercentTwo = Math.round((medianSupportforcancer / totalCost) * 100);
   // console.log("medianPercentTwo",medianPercentTwo)
 
-  const finalOutOfPocketTwo = totalCost > cancerCoverage ?  totalCost - cancerCoverage - medianSupportforcancer : 0;
+  const finalOutOfPocketTwo = totalCost > cancerCoverage ? totalCost - cancerCoverage - medianSupportforcancer : 0;
 
   console.log("finalOutOfPocketTwo", finalOutOfPocketTwo)
   let outOfPocketPercentTwo = Math.round((finalOutOfPocketTwo / totalCost) * 100);
@@ -287,9 +291,14 @@ function calculateCancerOnly({ status, incomeLevel, totalCost }) {
     cycleValue: cycleValue,
     BoxOne: cancerPercent,
     BoxTwo: medianPercentTwo,
-    BoxThree: outOfPocketPercentTwo
+    BoxThree: outOfPocketPercentTwo,
+    BoxOneValue: cancerCoverage,
+    BoxTwoValue: medianSupportforcancer,
+    BoxThreeValue: finalOutOfPocketTwo,
+    TotalDrugCost : totalCost
+
   });
-  
+
 
   // window.barAnimationValues = {
   //   costValue: totalCost,
@@ -330,7 +339,7 @@ function calculateIndemnityOnly({ status, incomeLevel, totalCost }) {
 
   let indemnityPercent = Math.round((indemnityCoverage / totalCost) * 100);
   const medianSupportRate = getIncomeSupportRate(incomeLevel);
-  let medianSupportforindemnity = totalCost > indemnityCoverage ?remainingAmount * medianSupportRate : 0;
+  let medianSupportforindemnity = totalCost > indemnityCoverage ? remainingAmount * medianSupportRate : 0;
 
   if (medianSupportforindemnity > 50000000) {
     medianSupportforindemnity = 50000000
@@ -352,16 +361,20 @@ function calculateIndemnityOnly({ status, incomeLevel, totalCost }) {
 
   middleIcome(status, incomeLevel, medianPercentOne, null, medianSupportforindemnity, null, null, null, null, totalCost);
   animateVerticalBar(indemnityPercent, medianPercentOne, outOfPocketPercentOne);
- 
+
 
   setState({
     costValue: costValue,
     cycleValue: cycleValue,
     BoxOne: indemnityPercent,
     BoxTwo: medianPercentOne,
-    BoxThree: outOfPocketPercentOne
+    BoxThree: outOfPocketPercentOne,
+    BoxOneValue: indemnityCoverage,
+    BoxTwoValue: medianSupportforindemnity,
+    BoxThreeValue: finalOutOfPocketOne,
+    TotalDrugCost : totalCost
   });
-  
+
 
   return {
     indemnityCoverage,
@@ -437,16 +450,20 @@ function calculateCancerANDindemnity({ status, incomeLevel, totalCost }) {
     totalCost
   );
   animateVerticalBar(cancerandindemnityPercent, medianPercentThree, outOfPocketPercentThree);
-  
+
 
   setState({
     costValue: costValue,
     cycleValue: cycleValue,
     BoxOne: cancerandindemnityPercent,
     BoxTwo: medianPercentThree,
-    BoxThree: outOfPocketPercentThree
+    BoxThree: outOfPocketPercentThree,
+    BoxOneValue: cancerplusindemnity,
+    BoxTwoValue: medianSupportforcancerandindemnity,
+    BoxThreeValue: finalOutOfPocketThree,
+    TotalDrugCost : totalCost
   });
-  
+
 
   return {
     cancerplusindemnity,
@@ -507,9 +524,13 @@ function noInsurance({ status, incomeLevel, totalCost }) {
     cycleValue: cycleValue,
     BoxOne: 0,
     BoxTwo: catastrophicPercent,
-    BoxThree: outofPocketPercent
+    BoxThree: outofPocketPercent,
+    BoxOneValue: 0,
+    BoxTwoValue: noInsurancemedianSupportValue,
+    BoxThreeValue: outofpocketMoney,
+    TotalDrugCost : totalCost
   });
-  
+
 
 
 
@@ -735,7 +756,6 @@ const modal = document.getElementById('modal');
 
 
 
-
 // Open modal
 
 function animateBarInModal(BoxOne, BoxTwo, BoxThree) {
@@ -766,11 +786,47 @@ openModalBtn.addEventListener('click', () => {
 
   // ✅ Use stored values
 
-    const { costValue, cycleValue, BoxOne, BoxTwo, BoxThree } = state
-    console.log(BoxOne, BoxTwo, BoxThree)
-    const addValues = document.getElementById("cycle-values")
-    addValues.innerHTML = `<span>1 cycle 약제비 : ${costValue}원 / 1년 치료 ${cycleValue} cycle 기준</span>`
-    animateBarInModal(BoxOne, BoxTwo, BoxThree);
+  const { costValue, cycleValue, BoxOne, BoxTwo, BoxThree, BoxOneValue, BoxTwoValue, BoxThreeValue, TotalDrugCost} = state
+
+  const valueArray = {
+    boxOnevalue: ["본인 부담 비율",BoxOneValue, BoxOne,"#fafafa","#007e41"],
+    boxTwoValue: ["재난적의료비 지원",BoxTwoValue, BoxTwo,"#bddba5","#007e41"],
+    boxThreeValue: ["본인 부담 비율",BoxThreeValue, BoxThree,"#eb6100","white"]
+  }
+  console.log(BoxOneValue, BoxTwoValue, BoxThreeValue)
+  const addValues = document.getElementById("cycle-values")
+  addValues.innerHTML = `<span>1 cycle 약제비 : ${costValue}원 / 1년 치료 ${cycleValue} cycle 기준</span>`
+  animateBarInModal(BoxOne, BoxTwo, BoxThree);
+
+  const addDrugValue = document.getElementById("total-drug-cost")
+  addDrugValue.innerHTML = `<span class="spanvalue">
+         전체 약제비<br>${formatCurrency(TotalDrugCost)} 원 (100%)
+       </span>
+     `;
+  const tooltipContainer = document.querySelector(".tooltip-container")
+  tooltipContainer.innerHTML = ""
+  Object.keys(valueArray).forEach(key => {
+    const [text,amount, percent,color, fontColor] = valueArray[key]
+
+    const tooltipBox = document.createElement("div");
+    tooltipBox.className = "tooltip-box";
+    tooltipBox.style.backgroundColor =  color 
+    tooltipBox.style.color = fontColor
+    tooltipBox.innerHTML = `
+   <span class="tooltip-title">${text}</span>
+   <span class="tooltip-value">${amount.toLocaleString()}원 (${percent}%)</span>
+ `;
+
+    tooltipContainer.appendChild(tooltipBox);
+
+  })
+
+
+
+  // BoxValues.innerHTML = `<div><span>${BoxOneValue}</span> <span>${BoxTwoValue}</span>  <span>${BoxThreeValue}</span> </div>`
+
+
+
 
 
 });

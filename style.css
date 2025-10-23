@@ -20,6 +20,47 @@ body {
   gap: 20px;
   justify-content: start;
 }
+
+.custom-radio {
+  display: flex;
+  align-content: center;
+  align-items: end;
+}
+/* Increase size and customize appearance */
+.custom-radio input[type="radio"] {
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Green selection indicator */
+.custom-radio input[type="radio"]:checked {
+  border-color: #bababa;
+  background-color: #e3e4e4;
+}
+
+/* Optional: add inner dot */
+.custom-radio input[type="radio"]::after {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background: #45b035;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: none;
+}
+
+.custom-radio input[type="radio"]:checked::after {
+  display: block;
+}
+
 .drug-box-title {
   text-align: center;
   background: #007e41;
@@ -323,13 +364,13 @@ select {
 }
 
 #bar-indemnity {
-  background-color: #fafafa; 
+  background-color: #fafafa;
 }
 #bar-median {
-  background-color: #bddba5; 
+  background-color: #bddba5;
 }
 #bar-outofpocket {
-  background-color: #eb6100; 
+  background-color: #eb6100;
 }
 /* .bar-area-vertical {
   width: 40px;
@@ -359,7 +400,6 @@ select {
     opacity: 1;
   }
 }
-
 
 .bar-ballon-div {
   display: flex;
@@ -405,7 +445,6 @@ select {
 }
 
 
-
 /* Responsive adjustments */
 @media screen and (max-width: 768px) and (orientation: landscape) {
   .drug-info-box input,
@@ -423,7 +462,8 @@ select {
     transform: scale(1);
   }
 
-  .radio-btn-div-one, .radio-btn-div-two{
+  .radio-btn-div-one,
+  .radio-btn-div-two {
     font-size: x-small;
   }
 
@@ -436,11 +476,11 @@ select {
     width: 50px;
   }
 
-  .bar-ballon{
+  .bar-ballon {
     width: 100px;
   }
 
-  .def-sum{
+  .def-sum {
     font-size: x-small;
   }
 }
@@ -478,14 +518,18 @@ select {
 
   .medical-sub-div {
     display: grid;
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     gap: 20px;
     padding: 1rem;
   }
 
   .bar-ballon {
     border: 1px solid #acd494;
-    width: 120px;
+    /* width: 120px; */
     height: 70px;
     border-radius: 12px;
     background: #fff;
