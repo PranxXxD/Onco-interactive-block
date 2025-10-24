@@ -285,6 +285,7 @@ select {
   text-wrap: wrap;
   font-size: 9px;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .medical-expense-div p {
@@ -512,6 +513,7 @@ select {
   }
 
   .medical-expense-div p {
+   
     padding: 2px;
     font-size: 8px;
   }

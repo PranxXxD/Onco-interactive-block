@@ -28,17 +28,7 @@ let cycleValue = 0;
 let drugsum = 0;
 // let medianIcome = 0;
 
-const state = {
-  costValue: 0,
-  cycleValue: 0,
-  BoxOne: 0,
-  BoxTwo: 0,
-  BoxThree: 0,
-  BoxOneValue: 0,
-  BoxTwoValue: 0,
-  BoxThreeValue: 0,
-  TotalDrugCost : 0
-};
+
 
 function setState(newState) {
   Object.assign(state, newState);
@@ -286,35 +276,19 @@ function calculateCancerOnly({ status, incomeLevel, totalCost }) {
   middleIcome(status, incomeLevel, medianPercentTwo, null, null, medianSupportforcancer, null, null, null, drugsum);
   animateVerticalBar(cancerPercent, medianPercentTwo, outOfPocketPercentTwo);
 
-  setState({
-    costValue: costValue,
-    cycleValue: cycleValue,
-    BoxOne: cancerPercent,
-    BoxTwo: medianPercentTwo,
-    BoxThree: outOfPocketPercentTwo,
-    BoxOneValue: cancerCoverage,
-    BoxTwoValue: medianSupportforcancer,
-    BoxThreeValue: finalOutOfPocketTwo,
-    TotalDrugCost : totalCost
-
-  });
-
-
-  // window.barAnimationValues = {
-  //   costValue: totalCost,
+  // setState({
+  //   costValue: costValue,
   //   cycleValue: cycleValue,
   //   BoxOne: cancerPercent,
   //   BoxTwo: medianPercentTwo,
-  //   BoxThree: outOfPocketPercentTwo
-  // };
+  //   BoxThree: outOfPocketPercentTwo,
+  //   BoxOneValue: cancerCoverage,
+  //   BoxTwoValue: medianSupportforcancer,
+  //   BoxThreeValue: finalOutOfPocketTwo,
+  //   TotalDrugCost : totalCost
 
-  // console.log("cancer values",
-  //   "cancerCoverage", cancerCoverage, "\n",
-  //   "cancerPercent:", cancerPercent, "\n",
-  //   "medianPercentTwo", medianPercentTwo, "\n",
-  //   "medianSupportforcancer", medianSupportforcancer, "\n",
-  //   "outOfPocketPercentTwo", outOfPocketPercentTwo, "\n",
-  //   "finalOutOfPocketTwo", finalOutOfPocketTwo, "\n",)
+  // });
+
 
   return {
     cancerCoverage,
@@ -363,17 +337,17 @@ function calculateIndemnityOnly({ status, incomeLevel, totalCost }) {
   animateVerticalBar(indemnityPercent, medianPercentOne, outOfPocketPercentOne);
 
 
-  setState({
-    costValue: costValue,
-    cycleValue: cycleValue,
-    BoxOne: indemnityPercent,
-    BoxTwo: medianPercentOne,
-    BoxThree: outOfPocketPercentOne,
-    BoxOneValue: indemnityCoverage,
-    BoxTwoValue: medianSupportforindemnity,
-    BoxThreeValue: finalOutOfPocketOne,
-    TotalDrugCost : totalCost
-  });
+  // setState({
+  //   costValue: costValue,
+  //   cycleValue: cycleValue,
+  //   BoxOne: indemnityPercent,
+  //   BoxTwo: medianPercentOne,
+  //   BoxThree: outOfPocketPercentOne,
+  //   BoxOneValue: indemnityCoverage,
+  //   BoxTwoValue: medianSupportforindemnity,
+  //   BoxThreeValue: finalOutOfPocketOne,
+  //   TotalDrugCost : totalCost
+  // });
 
 
   return {
@@ -452,17 +426,17 @@ function calculateCancerANDindemnity({ status, incomeLevel, totalCost }) {
   animateVerticalBar(cancerandindemnityPercent, medianPercentThree, outOfPocketPercentThree);
 
 
-  setState({
-    costValue: costValue,
-    cycleValue: cycleValue,
-    BoxOne: cancerandindemnityPercent,
-    BoxTwo: medianPercentThree,
-    BoxThree: outOfPocketPercentThree,
-    BoxOneValue: cancerplusindemnity,
-    BoxTwoValue: medianSupportforcancerandindemnity,
-    BoxThreeValue: finalOutOfPocketThree,
-    TotalDrugCost : totalCost
-  });
+  // setState({
+  //   costValue: costValue,
+  //   cycleValue: cycleValue,
+  //   BoxOne: cancerandindemnityPercent,
+  //   BoxTwo: medianPercentThree,
+  //   BoxThree: outOfPocketPercentThree,
+  //   BoxOneValue: cancerplusindemnity,
+  //   BoxTwoValue: medianSupportforcancerandindemnity,
+  //   BoxThreeValue: finalOutOfPocketThree,
+  //   TotalDrugCost : totalCost
+  // });
 
 
   return {
@@ -519,20 +493,17 @@ function noInsurance({ status, incomeLevel, totalCost }) {
 
   animateVerticalBar(0, catastrophicPercent, outofPocketPercent);
 
-  setState({
-    costValue: costValue,
-    cycleValue: cycleValue,
-    BoxOne: 0,
-    BoxTwo: catastrophicPercent,
-    BoxThree: outofPocketPercent,
-    BoxOneValue: 0,
-    BoxTwoValue: noInsurancemedianSupportValue,
-    BoxThreeValue: outofpocketMoney,
-    TotalDrugCost : totalCost
-  });
-
-
-
+  // setState({
+  //   costValue: costValue,
+  //   cycleValue: cycleValue,
+  //   BoxOne: 0,
+  //   BoxTwo: catastrophicPercent,
+  //   BoxThree: outofPocketPercent,
+  //   BoxOneValue: 0,
+  //   BoxTwoValue: noInsurancemedianSupportValue,
+  //   BoxThreeValue: outofpocketMoney,
+  //   TotalDrugCost : totalCost
+  // });
 
   return {
     catastrophicmedicalExp,
@@ -628,13 +599,6 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
     noInsuranceCase?.noInsurancemedianSupportValue,
     noInsuranceCase?.catastrophicPercent,
   );
-
-
-
-  // window.barAnimationValues = {
-  //   costValue,
-  //   cycleValue
-  // };
 
   bottomBalloon.style.background = "#eb6100";
 }
@@ -747,311 +711,26 @@ function bindEvents() {
 }
 
 
-
-
-// Modal Code
-const openModalBtn = document.getElementById('openModalBtn');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const modal = document.getElementById('modal');
-
-
-
-// Open modal
-
-function animateBarInModal(BoxOne, BoxTwo, BoxThree) {
-
-  console.log("Modal values", BoxOne, BoxTwo, BoxThree)
-  // console.log("popup.js",indemnityPercent, medianPercent, outOfPocketPercent, catastrophicPercent, outofPocketPercent)
-
-  const indemnityBarModal = document.getElementById("Modal-bar-indemnity");
-  const medianBarModal = document.getElementById("Modal-bar-median");
-  const outOfPocketBarModal = document.getElementById("Modal-bar-outofpocket");
-
-  [indemnityBarModal, medianBarModal, outOfPocketBarModal].forEach(bar => {
-    bar.style.width = "0%";
-    bar.style.animation = "none";
-    bar.offsetWidth; // Trigger reflow
-    bar.style.animation = "fillBarWidth 1.2s ease-out forwards";
-  });
-
-
-  indemnityBarModal.style.width = `${BoxOne || 0}%`;
-  medianBarModal.style.width = `${BoxTwo || 0}%`;
-  outOfPocketBarModal.style.width = `${BoxThree || 0}%`;
+// Table Modal code
+function openModal() {
+  document.getElementById("Modal").style.display = "block";
 }
 
-openModalBtn.addEventListener('click', () => {
-  modal.classList.remove('hidden');
-  closeModalBtn.focus();
+function closeModal() {
+  document.getElementById("Modal").style.display = "none";
+}
 
-  // ✅ Use stored values
-
-  const { costValue, cycleValue, BoxOne, BoxTwo, BoxThree, BoxOneValue, BoxTwoValue, BoxThreeValue, TotalDrugCost} = state
-
-  const valueArray = {
-    boxOnevalue: ["본인 부담 비율",BoxOneValue, BoxOne,"#fafafa","#007e41"],
-    boxTwoValue: ["재난적의료비 지원",BoxTwoValue, BoxTwo,"#bddba5","#007e41"],
-    boxThreeValue: ["본인 부담 비율",BoxThreeValue, BoxThree,"#eb6100","white"]
+// Optional: Close modal when clicking outside
+window.onclick = function(event) {
+  const modal = document.getElementById("Modal");
+  if (event.target === modal) {
+    modal.style.display = "none";
   }
-  console.log(BoxOneValue, BoxTwoValue, BoxThreeValue)
-  const addValues = document.getElementById("cycle-values")
-  addValues.innerHTML = `<span>1 cycle 약제비 : ${costValue}원 / 1년 치료 ${cycleValue} cycle 기준</span>`
-  animateBarInModal(BoxOne, BoxTwo, BoxThree);
-
-  const addDrugValue = document.getElementById("total-drug-cost")
-  addDrugValue.innerHTML = `<span class="spanvalue">
-         전체 약제비<br>${formatCurrency(TotalDrugCost)} 원 (100%)
-       </span>
-     `;
-  const tooltipContainer = document.querySelector(".tooltip-container")
-  tooltipContainer.innerHTML = ""
-  Object.keys(valueArray).forEach(key => {
-    const [text,amount, percent,color, fontColor] = valueArray[key]
-
-    const tooltipBox = document.createElement("div");
-    tooltipBox.className = "tooltip-box";
-    tooltipBox.style.backgroundColor =  color 
-    tooltipBox.style.color = fontColor
-    tooltipBox.innerHTML = `
-   <span class="tooltip-title">${text}</span>
-   <span class="tooltip-value">${amount.toLocaleString()}원 (${percent}%)</span>
- `;
-
-    tooltipContainer.appendChild(tooltipBox);
-
-  })
-
-
-
-  // BoxValues.innerHTML = `<div><span>${BoxOneValue}</span> <span>${BoxTwoValue}</span>  <span>${BoxThreeValue}</span> </div>`
-
-
-
-
-
-});
-
-// Close modal
-closeModalBtn.addEventListener('click', () => {
-  modal.classList.add('hidden');
-  openModalBtn.focus(); // Return focus
-
-});
-
-// Close on outside click
-window.addEventListener('click', (e) => {
-  if (e.target === modal) {
-    modal.classList.add('hidden');
-    openModalBtn.focus();
-  }
-});
-
-// Close on Escape key
-window.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-    modal.classList.add('hidden');
-    openModalBtn.focus();
-  }
-});
-
-// function middleIcome(status, incomelevel, medianPercentOne, medianPercentTwo, medianSupportforindemnity, medianSupportforcancer, medianSupportforcancerandindemnity, medianPercentThree, finalcatastrophicPercent, catastrophicmedicalExp) {
-
-//   if (status === "yes") {
-//     if (incomelevel === "below50") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//    <p class="def-sum">
-//      재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
-//    </p> 
-//  `;
-//     } if (incomelevel === "50to100") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//    <p class="def-sum">
-//      재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo}%)
-//    </p> 
-//  `;
-//     } if (incomelevel === "100to200") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//    <p class="def-sum">
-//      재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
-//    </p> 
-//  `;
-//     } if (incomelevel === "above200") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//    <p class="def-sum">
-//      재난적의료비 지원<br>${medianSupportforindemnity.toLocaleString() || medianSupportforcancer.toLocaleString() || medianSupportforcancerandindemnity.toLocaleString()}원 (${medianPercentOne || medianPercentTwo || medianPercentThree}%)
-//    </p> 
-//  `;
-//     }
-
-//   }
-
-
-//   if (status === "no") {
-
-//     console.log("status no")
-
-//     if (incomelevel === "below50") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//      <p class="def-sum">
-//        재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
-//      </p> 
-//    `;
-//     } if (incomelevel === "50to100") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//      <p class="def-sum">
-//        재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
-//      </p> 
-//    `;
-//     } if (incomelevel === "100to200") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//      <p class="def-sum">
-//        재난적의료비 지원<br>${catastrophicmedicalExp}원 (${finalcatastrophicPercent}%)
-//      </p> 
-//    `;
-//     } if (incomelevel === "above200") {
-//       // Update center balloon (median income support)
-//       centerBalloon.innerHTML = `
-//      <p class="def-sum">
-//        재난적의료비 지원<br>${0}원 (${0}%)
-//      </p> 
-//    `;
-//     }
-
-//   }
-// }
-// function calculateMedianIcom (outOfPocketMoney){
-//   console.log("outOfPocket", outOfPocketMoney)
-//   console.log("incomeSelect", incomeSelect)
-//   let supportRate = 0;
-//   if (incomeSelect.value === "≤50%") supportRate = 0.8;
-//   else if (incomeSelect.value === "5>50% - ≤100%") supportRate = 0.7;
-//   else if (incomeSelect.value === ">100% - ≤200%") supportRate = 0.6;
-//   else if (incomeSelect.value === "200%") supportRate = 0.5;
-
-//    let incomeSupport = outOfPocketMoney * supportRate;
-
-//     console.log("incomeSupport", incomeSupport)
-//     return incomeSupport
-
-
-// }
-
-
-
-// function calculate() {
-//   const drugCost = parseFloat(drugCostInput.value);
-//   const cycle = parseInt(cycleInput.value);
-//   const selectedInsurancesStatus = Array.from(insuranceStatus)
-//   .filter(i => i.checked)
-//   .map(i => i.value);
-//   console.log("selectedInsurances", selectedInsurancesStatus)
-//   const selectedInsurances = Array.from(insuranceInputs)
-//     .filter(i => i.checked)
-//     .map(i => i.value);
-//     console.log("selectedInsurances", selectedInsurances)
-
-
-//   const incomeLevel = incomeSelect.value;
-
-//   if (isNaN(drugCost) || isNaN(cycle)) {
-//     totalCostDisplay.textContent = "Total Drug Cost: -";
-//     outOfPocketDisplay.textContent = "Out-of-pocket Cost: -";
-//     if (breakdownDisplay) breakdownDisplay.innerHTML = "";
-//     return;
-//   }
-
-//   const totalDrugCost = drugCost * cycle;
-//   totalCostDisplay.textContent = `Total Drug Cost: ₩${totalDrugCost.toLocaleString()}`;
-
-//   let indemnitySupport = 0;
-//   let cancerSupport = 0;
-//   let incomeSupport = 0;
-//   let outOfPocket = totalDrugCost;
-
-//   // const hasIndemnity = selectedInsurances.includes("indemnity");
-//   // const hasCancer = selectedInsurances.includes("cancer");
-
-//   // Indemnity insurance: 70% of (total - 200,000 * cycle)
-//   if (selectedInsurances.includes("indemnity")) {
-//     indemnitySupport = (totalDrugCost - (200000 * cycle)) * 0.7;
-//     // indemnitySupport = totalDrugCost - (totalDrugCost* 0.7);
-//     console.log("indemnitySupport",indemnitySupport)
-//     outOfPocket -= indemnitySupport;
-//     outOfPocket -= (200000 * cycle);
-//   }
-
-//   // Cancer insurance: fixed 30,000,000 KRW
-//   if (selectedInsurances.includes("cancer")) {
-//     cancerSupport = 30000000;
-//     outOfPocket -= cancerSupport;
-//   }
-
-//   // Median income support
-//   let supportRate = 0;
-//   if (incomeLevel === "below50") supportRate = 0.8;
-//   else if (incomeLevel === "50to100") supportRate = 0.7;
-//   else if (incomeLevel === "100to200") supportRate = 0.6;
-//   else if (incomeLevel === "above200") supportRate = 0.5;
-
-//   incomeSupport = outOfPocket * supportRate;
-//   outOfPocket -= incomeSupport;
-
-//   // Apply catastrophic medical expense support limit
-//   const catastrophicLimit = 50000000;
-//   if (outOfPocket > catastrophicLimit) {
-//     outOfPocket = catastrophicLimit + (outOfPocket - catastrophicLimit);
-//   }
-
-//   outOfPocket = Math.max(0, outOfPocket);
-
-//   // Display final out-of-pocket cost
-//   outOfPocketDisplay.textContent = `Out-of-pocket Cost: ₩${Math.round(outOfPocket).toLocaleString()}`;
-
-//   // Optional: Show breakdown with percentages
-//   if (breakdownDisplay) {
-//     breakdownDisplay.innerHTML = `
-//       <p>Indemnity Insurance Support: ₩${Math.round(indemnitySupport).toLocaleString()} (${((indemnitySupport / totalDrugCost) * 100).toFixed(1)}%)</p>
-//       <p>Cancer Insurance Support: ₩${Math.round(cancerSupport).toLocaleString()} (${((cancerSupport / totalDrugCost) * 100).toFixed(1)}%)</p>
-//       <p>Median Income Support: ₩${Math.round(incomeSupport).toLocaleString()} (${((incomeSupport / totalDrugCost) * 100).toFixed(1)}%)</p>
-//       <p><strong>Final Out-of-pocket Cost: ₩${Math.round(outOfPocket).toLocaleString()} (${((outOfPocket / totalDrugCost) * 100).toFixed(1)}%)</strong></p>
-//     `;
-//   }
-// }
-
-// // Attach listeners to inputs
-
-// // Combine all inputs into one array
-// const allInputs = [
-//   drugCostInput,
-//   cycleInput,
-//   incomeSelect,
-//   ...insuranceInputs,
-//   ...insuranceStatus,
-
-// ];
-
-// // Attach listeners safely
-// allInputs.forEach(el => {
-//   if (el) {
-//     el.addEventListener("input", calculate);
-//   }
-// });
-
-// Reset logic
+}
 
 
 function removeAnimation() {
-
-
   // Apply heights to each segment
-
   const indemnityBar = document.getElementById("bar-indemnity");
   const medianBar = document.getElementById("bar-median");
   const outOfPocketBar = document.getElementById("bar-outofpocket");

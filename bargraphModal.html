@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button id="closeModalBtn" class="close-btn" aria-label="Close modal">&times;</button>
+      <h2 id="modalTitle">Medical Support Overview</h2>
+
+      <div class="card-container">
+        <!-- Example Card -->
+        <div class="card" role="region" aria-label="Profile A">
+          <div class="profile-img-div"><img src="/Assets/avatar/avatar-3.jpg" alt="avatar-0" width="100" /></div>
+          <h3>A (78세)</h3>
+          <p>Condition: 암환자</p>
+          <hr/>
+          <p>Insurance: 없음</p>
+          <p>Income: 40%</p>
+          <p>Support: 가능</p>
+        </div>
+
+        <!-- Repeat for B to E -->
+        <div class="card" role="region" aria-label="Profile B">
+          <div class="profile-img-div"><img src="/Assets/avatar/avatar-1.jpg" alt="avatar-1" width="100"/></div>
+          <h3>B (50세)</h3>
+          <p>Condition: 고혈압</p>
+          <hr/>
+          <p>Insurance: 있음</p>
+          <p>Income: 160%</p>
+          <p>Support: 가능</p>
+        </div>
+<!-- 
+        <div class="card" role="region" aria-label="Profile C">
+          <div class="profile-img-div"><img src="/Assets/avatar/avatar-2.jpg" alt="avatar-2" width="100"/></div>
+          <h3>B (50세)</h3>
+          <p>Condition: 고혈압</p>
+          <hr/>
+          <p>Insurance: 있음</p>
+          <p>Income: 160%</p>
+          <p>Support: 가능</p>
+        </div>
+        
+        <div class="card" role="region" aria-label="Profile D">
+          <div class="profile-img-div"><img src="/Assets/avatar/avatar-3.jpg" alt="avatar-3" width="100"/></div>
+          <h3>B (50세)</h3>
+          <p>Condition: 고혈압</p>
+          <hr/>
+          <p>Insurance: 있음</p>
+          <p>Income: 160%</p>
+          <p>Support: 가능</p>
+        </div> 
+        
+        <div class="card" role="region" aria-label="Profile E">
+          <div class="profile-img-div"><img src="/Assets/avatar/avatar-1.jpg" alt="avatar-4" width="100"/></div>
+          <h3>B (50세)</h3>
+          <p>Condition: 고혈압</p>
+          <hr/>
+          <p>Insurance: 있음</p>
+          <p>Income: 160%</p>
+          <p>Support: 가능</p>
+        </div> -->
+
+        <!-- Add C, D, E similarly -->
+      </div>
+
+      <div class="cost-breakdown" role="region" aria-label="Cost Breakdown">
+       <div id="cycle-values" class="bar-box"></div>
+        <!-- <div class="cyle-value">sdasfsfdf</div> -->
+        <div class="bar-graph-div">
+          <div class="popup-bar-area">
+            <!-- <div class="bar-fill"></div> -->
+
+            <div id="Modal-bar-indemnity" class="Modal-bar-segment"></div>
+            <div id="Modal-bar-median" class="Modal-bar-segment"></div>
+            <div id="Modal-bar-outofpocket" class="Modal-bar-segment"></div>
+            
+          </div>
+          <div id="total-drug-cost"></div>
+        </div>
+        <div class="tooltip-container"></div>
+      </div>
+    </div>
+  </div>

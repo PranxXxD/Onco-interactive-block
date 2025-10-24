@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KEYTRUDA Cost Calculator</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="popStyles.css" />
+    <link rel="stylesheet" href="tableModal.css" />
   </head>
 
   <body>
@@ -45,7 +45,8 @@
             <div class="insurance-exisitance-box">
               <label class="custom-radio">
                 <input type="radio" name="insuranceStatus" class="status insur-checker" value="yes" /> Yes</label>
-              <label class="custom-radio"><input type="radio" name="insuranceStatus" class="status insur-checker" value="no" />No</label>
+              <label class="custom-radio"><input type="radio" name="insuranceStatus" class="status insur-checker"
+                  value="no" />No</label>
             </div>
 
 
@@ -55,11 +56,11 @@
                 <h3>Type of Private health insurance</h3>
               </div>
               <div class="insurance-type-box">
-                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="cancer"
-                    id="cancer" />Cancer Insurance <span class="smallFont">(diagnosis benefit)</span>
+                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType"
+                    value="cancer" id="cancer" />Cancer Insurance <span class="smallFont">(diagnosis benefit)</span>
                 </label>
-                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType" value="indemnity"
-                    id="indemnity" />indemnity
+                <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType"
+                    value="indemnity" id="indemnity" />indemnity
                   insurance <span class="smallFont">(reimbursnement type)</span></label>
               </div>
             </div>
@@ -72,24 +73,24 @@
               <h3>중위소득</h3>
             </div>
 
-            <div class="medical-expense-div">
+            <div onclick="openModal()" class="medical-expense-div">
               <p>2025 Catastrophic Medical Expense Income standard</p>
             </div>
           </div>
           <div class="income-radio-btn-div">
             <div id="income" class="income-radio-btn-subdiv">
               <div class="radio-btn-div-one">
-                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="below50"
-                    id="fifty-percent" /> ≤50%
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
+                    value="below50" id="fifty-percent" /> ≤50%
                 </label>
-                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="50to100"
-                    id="fifty-hunder-percent" />>50% - ≤100%</label>
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
+                    value="50to100" id="fifty-hunder-percent" />>50% - ≤100%</label>
               </div>
               <div class="radio-btn-div-two">
-                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="100to200"
-                    id="hunder-twohundered-percent" />>100% - ≤200%</label>
-                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range" value="above200"
-                    id="above-twohundered-percent" />>200%</label>
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
+                    value="100to200" id="hunder-twohundered-percent" />>100% - ≤200%</label>
+                <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
+                    value="above200" id="above-twohundered-percent" />>200%</label>
               </div>
             </div>
           </div>
@@ -155,93 +156,82 @@
 
       <!-- Footer -->
       <footer class="footer">
-        <button id="openModalBtn">대표 환자 사례 보러가기</button>
+        <!-- <button id="openModalBtn">대표 환자 사례 보러가기</button> -->
         <button class="resetBtn" onclick="RestButton()" id="resetBtn">RESET</button>
       </footer>
     </div>
 
 
-
-    <!-- Modal -->
-    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <!-- income values table format -->
+    <!-- Modal Structure -->
+    <div id="Modal" class="modal">
       <div class="modal-content">
-        <button id="closeModalBtn" class="close-btn" aria-label="Close modal">&times;</button>
-        <h2 id="modalTitle">Medical Support Overview</h2>
+        <div>
+          <span class="close" onclick="closeModal()">&times;</span>
 
-        <div class="card-container">
-          <!-- Example Card -->
-          <div class="card" role="region" aria-label="Profile A">
-            <div class="profile-img-div"><img src="/Assets/avatar/avatar-3.jpg" alt="avatar-0" width="100" /></div>
-            <h3>A (78세)</h3>
-            <p>Condition: 암환자</p>
-            <hr/>
-            <p>Insurance: 없음</p>
-            <p>Income: 40%</p>
-            <p>Support: 가능</p>
-          </div>
-
-          <!-- Repeat for B to E -->
-          <div class="card" role="region" aria-label="Profile B">
-            <div class="profile-img-div"><img src="/Assets/avatar/avatar-1.jpg" alt="avatar-1" width="100"/></div>
-            <h3>B (50세)</h3>
-            <p>Condition: 고혈압</p>
-            <hr/>
-            <p>Insurance: 있음</p>
-            <p>Income: 160%</p>
-            <p>Support: 가능</p>
-          </div>
-<!-- 
-          <div class="card" role="region" aria-label="Profile C">
-            <div class="profile-img-div"><img src="/Assets/avatar/avatar-2.jpg" alt="avatar-2" width="100"/></div>
-            <h3>B (50세)</h3>
-            <p>Condition: 고혈압</p>
-            <hr/>
-            <p>Insurance: 있음</p>
-            <p>Income: 160%</p>
-            <p>Support: 가능</p>
-          </div>
-          
-          <div class="card" role="region" aria-label="Profile D">
-            <div class="profile-img-div"><img src="/Assets/avatar/avatar-3.jpg" alt="avatar-3" width="100"/></div>
-            <h3>B (50세)</h3>
-            <p>Condition: 고혈압</p>
-            <hr/>
-            <p>Insurance: 있음</p>
-            <p>Income: 160%</p>
-            <p>Support: 가능</p>
-          </div> 
-          
-          <div class="card" role="region" aria-label="Profile E">
-            <div class="profile-img-div"><img src="/Assets/avatar/avatar-1.jpg" alt="avatar-4" width="100"/></div>
-            <h3>B (50세)</h3>
-            <p>Condition: 고혈압</p>
-            <hr/>
-            <p>Insurance: 있음</p>
-            <p>Income: 160%</p>
-            <p>Support: 가능</p>
-          </div> -->
-
-          <!-- Add C, D, E similarly -->
         </div>
-
-        <div class="cost-breakdown" role="region" aria-label="Cost Breakdown">
-         <div id="cycle-values" class="bar-box"></div>
-          <!-- <div class="cyle-value">sdasfsfdf</div> -->
-          <div class="bar-graph-div">
-            <div class="popup-bar-area">
-              <!-- <div class="bar-fill"></div> -->
-  
-              <div id="Modal-bar-indemnity" class="Modal-bar-segment"></div>
-              <div id="Modal-bar-median" class="Modal-bar-segment"></div>
-              <div id="Modal-bar-outofpocket" class="Modal-bar-segment"></div>
-              
-            </div>
-            <div id="total-drug-cost"></div>
-          </div>
-          <div class="tooltip-container"></div>
+        <br>
+        <img class="income-img" src="./Assets/income-table.png"  alt="income-table">
+        <!-- <div class="table-box-title">
+          <h3>소득구간별 기준중위소득, 건강보험료 및 의료비 부담수준 기준금액(2025.1.1 .~ 2025.12.31)'</h3>
         </div>
+        <div class="table-container">
+          <table border="1">
+            <thead>
+
+              <tr>
+                <th>소득구분</th>
+                <th>인원수</th>
+                <th>소득액</th>
+                <th colspan="3">보험료(원단위 절상)</th>
+                <th>의료비 부담수준</th>
+                <th>지원비율</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>직장</td>
+                <td>지역</td>
+                <td>혼합</td>
+                <td></td>
+                <td></td>
+              </tr>
+
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6">기초생활수급자, 차상위계층
+                </td>
+                <td>800,000
+                </td>
+                <td>80
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="5">50% 이하</td>
+                </tr>
+               <tr> <td>
+                1인
+              </td>
+              <td>
+                1,211,000
+              </td>
+              <td>42,930</td>
+              <td>12,270</td>
+              <td>45,320</td>
+              <td>1,200,000</td></tr>
+                <tr>
+                <td rowspan="5"></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div> -->
       </div>
     </div>
+
+
 
 
     <!-- <script src="scriptone.js"></script> -->
