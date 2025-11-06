@@ -64,16 +64,16 @@ body {
 .drug-box-title {
   text-align: center;
   background: #007e41;
-  border-radius: 1rem 1rem 0 0;
+  border-radius: 10px 10px 0 0;
   color: white;
   padding: 1px 0 1px 0;
 }
 
 .drug-info-box,
 .cycle-info-box {
-  background: #fafafa;
+  background: white;
   /* background: #dc3545; */
-  border-radius: 1rem;
+  border-radius: 0 0 10px 10px ;
   border: 1px solid #68b64b;
   padding: 1px 0 1px 0;
   margin-top: -13px;
@@ -88,6 +88,20 @@ body {
   background-image: url("/Assets/CycleField.png");
 } */
 
+
+/* Hide arrows in Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: none;
+}
+
+
 .drug-info-box input,
 .cycle-info-box input {
   width: auto;
@@ -100,10 +114,12 @@ body {
   border-style: none;
 }
 
-.drug-info-box input,
-.cycle-info-box input :active {
-  border-style: none;
+
+.drugCost:focus,.cycle:focus {
+  border: none;
+  outline: none;
 }
+
 
 .main-layout {
   display: grid;
@@ -114,9 +130,10 @@ body {
 
 .insurance-box-title {
   text-align: center;
-  background: #68b64b;
-  border-radius: 1rem 1rem 0 0;
-  color: white;
+  background: #4a8c38;
+  /* background: #68b64b; */
+  border-radius: 10px 10px 0px 0px;
+  color: #fff;
   padding: 1px 0 1px 0;
 }
 
@@ -126,9 +143,9 @@ body {
 }
 
 .insurance-status-box {
-  background: #fafafa;
+  background: white;
   /* background: #dc3545; */
-  border-radius: 1rem;
+  border-radius: 0 0 10px 10px;
   border: 1px solid #68b64b;
   padding: 1px 0 1px 0;
   margin-top: -13px;
@@ -142,7 +159,8 @@ hr {
 
 .insurance-type-title {
   text-align: center;
-  color: #68b64b;
+   /* color: #68b64b; */
+   color: #3E602F;
 }
 .insurance-exisitance-box {
   display: grid;
@@ -257,7 +275,8 @@ select {
   padding: 20px 20px;
   margin: 0 10px;
   font-size: larger;
-  background-color: #68b64a;
+  /* background-color: #68b64a; */
+  background-color: #4a8c38;
   color: white;
   border: none;
   border-radius: 2rem;
@@ -265,39 +284,44 @@ select {
 
 /* income drop down  styles*/
 .income-drop-box {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 10px;
+  gap: 10px; */
+  display: grid;
+  position: relative;
 }
 
 .income-range {
   margin-top: 1rem;
   text-align: center;
-  background: #68b64b;
-  border-radius: 1rem 1rem 0 0;
+  background: #4a8c38;
+  /* background: #68b64b; */
+  border-radius: 10px 10px 0 0;
   color: white;
   /* padding: 1px 0 1px 0; */
 }
 
 .medical-expense-div {
+  position: absolute;
+  right: 24px;
   place-items: center;
   text-align: center;
   text-wrap: wrap;
-  font-size: 9px;
+  font-size: 12px;
   margin-top: 1rem;
   cursor: pointer;
 }
 
 .medical-expense-div p {
-  color: white;
-  background-color: #83aaaf;
+  color: black;
+  background-color: #c1edb1;
   padding: 5px;
 }
 
 .income-radio-btn-div {
   position: relative;
   background: #fafafa;
-  border-radius: 1rem;
+  border-radius: 0 0 10px 10px;
   border: 1px solid #68b64b;
   padding: 1px 0 1px 0;
   margin-top: -13px;
@@ -319,8 +343,9 @@ select {
 
 .medical-expense-title {
   text-align: center;
-  background: #68b64b;
-  border-radius: 1rem 1rem 0 0;
+    /* background: #68b64b; */
+    background: #4a8c38;
+  border-radius: 10px 10px 0 0;
   color: white;
   padding: 1px 0 1px 0;
 }
@@ -328,7 +353,7 @@ select {
 .medical-info-box {
   background: #eeffe3;
   /* background: #dc3545; */
-  border-radius: 1rem;
+  border-radius: 0 0 10px 10px;
   border: 1px solid #68b64b;
   padding: 1.6rem 0 1px 0;
   margin-top: -13px;
@@ -371,7 +396,8 @@ select {
   background-color: #bddba5;
 }
 #bar-outofpocket {
-  background-color: #eb6100;
+  background-color: #943F00;
+  /* background-color: #eb6100; */
 }
 /* .bar-area-vertical {
   width: 40px;
@@ -423,9 +449,10 @@ select {
   background-color: #eeffe3;
 }
 .bar-ballon:nth-child(4) {
-  background-color: #bddba5;
-  color: #007e41;
+    background-color: #ddf6cb;
+    color: #274C1F;
 }
+
 .bar-ballon:nth-child(5) {
   background-color: #68b64a;
   color: white;
@@ -470,15 +497,21 @@ select {
 
   .medical-sub-div {
     display: grid;
-    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    grid-template-columns: 60px 150px
   }
+
+  
+  .medical-expense-div p {
+    display: none;
+  }
+
 
   .medical-sub-div .bar-area {
     width: 50px;
   }
 
   .bar-ballon {
-    width: 100px;
+    width: 150px;
   }
 
   .def-sum {
@@ -514,18 +547,22 @@ select {
 
   .medical-expense-div p {
    
-    padding: 2px;
-    font-size: 8px;
+    display: none;
+  }
+
+  .bar-area{
+    width: 60px;
+    height: 345px;
   }
 
   .medical-sub-div {
     display: grid;
-    grid-template-columns: repeat(1, minmax(200px, 1fr));
-    justify-items: center;
+    grid-template-columns: 60px 200px;
+    justify-items: start;
     justify-content: center;
     align-items: center;
     align-content: center;
-    gap: 20px;
+    gap: 10px;
     padding: 1rem;
   }
 
@@ -544,7 +581,7 @@ select {
   }
 
   .footer button {
-    padding: 10px;
+    padding: 15px;
     font-size: small;
   }
 }

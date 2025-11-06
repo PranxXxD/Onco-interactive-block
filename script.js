@@ -1,5 +1,6 @@
 
-const drugCostInput = document.querySelector(".drugCost");
+// const drugCostInput = document.querySelector(".drugCost");
+const drugCostInput = document.getElementById("drugCost");
 const cycleInput = document.querySelector(".cycle");
 const defaultValue = document.querySelector('.def-sum')
 const addedArea = document.querySelector('.added-check')
@@ -35,24 +36,35 @@ function setState(newState) {
   console.log("Updated state:", state);
 }
 
-// Utility Functions
+
+
+// // Utility Functions
 function parseCurrency(value) {
-  return Number(value.replace(/[^0-9]/g, ""));
+  if (!value) return 0;
+  const numeric = value.replace(/[^0-9]/g, "");
+  return numeric ? Number(numeric) : 0;
 }
 
+
 function formatCurrency(value) {
-  return value.toLocaleString();
+  const num = typeof value === "number" ? value : Number(value);
+  if (isNaN(num)) return "₩0";
+  return `₩${num.toLocaleString()}`;
 }
+
 
 // Calculation Functions
 function calculateTotalDrugCost(cost, cycles) {
+
   return cost * cycles;
 }
 
 // UI Update Functions
 function updateDrugCostSummary() {
   costValue = parseCurrency(drugCostInput.value);
-  cycleValue = parseInt(cycleInput.value, 10) || 0;
+  // console.log("costValue",costValue)
+  cycleValue = parseInt(cycleInput.value, 10) || 0; 
+  // console.log("costValue",costValue)
   drugsum = calculateTotalDrugCost(costValue, cycleValue);
 
   if (costValue && cycleValue) {
@@ -600,7 +612,7 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
     noInsuranceCase?.catastrophicPercent,
   );
 
-  bottomBalloon.style.background = "#eb6100";
+  bottomBalloon.style.background = "#943F00";
 }
 
 function middleIcome(
@@ -652,66 +664,157 @@ function middleIcome(
   }
 }
 
-function bindEvents() {
-  drugCostInput.addEventListener("input", updateDrugCostSummary);
-  cycleInput.addEventListener("input", updateDrugCostSummary);
-  resetBtn.addEventListener("click", RestButton);
+// function bindEvents() {
+//  drugCostInput.addEventListener("input", (e) => {
+//   let value = e.target.value.replace(/[^0-9]/g, "");
+//   if (value) {
+//     e.target.value = `₩ ${Number(value).toLocaleString()}`; // Add commas and ₩
+//   } else {
+//     e.target.value = "";
+//   }
+//   updateDrugCostSummary(); // Update summary after formatting
+// });
 
-  insurSelector.forEach(el => {
-    el.addEventListener("click", () => {
-      const cost = parseCurrency(drugCostInput.value);
-      const cycles = parseInt(cycleInput.value, 10) || 0;
-      const total = calculateTotalDrugCost(cost, cycles);
-      const incomeLevel = document.querySelector("input[name='income-range']:checked")?.value;
-      const status = document.querySelector("input[name='insuranceStatus']:checked")?.value;
-      console.log("status", status)
-      const types = Array.from(document.querySelectorAll("input[name='insuranceType']:checked")).map(i => i.value);
+// drugCostInput.addEventListener("keydown", (e) => {
+//   if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
+//     e.preventDefault();
+//   }
+// });
 
-      if (!cost || !cycles) {
-        alert("약제비와 주기를 입력해주세요.");
-        return;
-      }
+//   cycleInput.addEventListener("input", updateDrugCostSummary);
+//   resetBtn.addEventListener("click", RestButton);
 
-      if (status === "yes") {
-        addedArea.classList.remove("disabled");
-        // console.log("disable removed")
+//   insurSelector.forEach(el => {
+//     el.addEventListener("click", () => {
+//       // const cost = parseCurrency(drugCostInput.value);
+//       // const cycles = parseInt(cycleInput.value, 10) || 0;
+//       const total = calculateTotalDrugCost(costValue, cycleValue);
+//       const incomeLevel = document.querySelector("input[name='income-range']:checked")?.value;
+//       const status = document.querySelector("input[name='insuranceStatus']:checked")?.value;
+//       console.log("status", status)
+//       const types = Array.from(document.querySelectorAll("input[name='insuranceType']:checked")).map(i => i.value);
 
-      }
+//       if (!costValue || !cycleValue) {
+//         alert("약제비와 주기를 입력해주세요.");
+//         return;
+//       }
 
-      if (status === "yes" && types?.includes("cancer")) {
-        // addedArea.classList.remove("disabled");
+//       if (status === "yes") {
+//         addedArea.classList.remove("disabled");
+//         // console.log("disable removed")
 
-        calculateCancerOnly({ status, type: types, incomeLevel, totalCost: total })
-        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
-      }
+//       }
 
-      if (status === "yes" && types?.includes("indemnity")) {
-        addedArea.classList.remove("disabled");
+//       if (status === "yes" && types?.includes("cancer")) {
+//         // addedArea.classList.remove("disabled");
 
-        calculateIndemnityOnly({ status, type: types, incomeLevel, totalCost: total })
-        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
-      }
+//         calculateCancerOnly({ status, type: types, incomeLevel, totalCost: total })
+//         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+//       }
 
-      if (status === "yes" && (types?.includes("cancer") && types?.includes("indemnity"))) {
-        addedArea.classList.remove("disabled");
+//       if (status === "yes" && types?.includes("indemnity")) {
+//         addedArea.classList.remove("disabled");
 
-        calculateCancerANDindemnity({ status, type: types, incomeLevel, totalCost: total })
-        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
-      }
+//         calculateIndemnityOnly({ status, type: types, incomeLevel, totalCost: total })
+//         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+//       }
 
-      if (status === "no") {
-        addedArea.classList.add("disabled");
-        noInsurance({ status, type: types, incomeLevel, totalCost: total })
-        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
-      }
+//       if (status === "yes" && (types?.includes("cancer") && types?.includes("indemnity"))) {
+//         addedArea.classList.remove("disabled");
+
+//         calculateCancerANDindemnity({ status, type: types, incomeLevel, totalCost: total })
+//         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+//       }
+
+//       if (status === "no") {
+//         addedArea.classList.add("disabled");
+//         noInsurance({ status, type: types, incomeLevel, totalCost: total })
+//         updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+//       }
 
 
-    });
-  });
-}
+//     });
+//   });
+// }
 
 
 // Table Modal code
+
+
+function bindEvents() {
+  drugCostInput.addEventListener("input", (e) => {
+    let value = e.target.value.replace(/[^0-9]/g, "");
+    if (value) {
+      e.target.value = `₩ ${Number(value).toLocaleString()}`;
+    } else {
+      e.target.value = "";
+    }
+    updateDrugCostSummary();
+  });
+ 
+  drugCostInput.addEventListener("keydown", (e) => {
+    if (!/[0-9]/.test(e.key) && e.key !== "Backspace" && e.key !== "Delete" && e.key !== "ArrowLeft" && e.key !== "ArrowRight") {
+      e.preventDefault();
+    }
+  });
+ 
+  cycleInput.addEventListener("input", updateDrugCostSummary);
+  resetBtn.addEventListener("click", RestButton);
+ 
+  insurSelector.forEach(el => {
+    el.addEventListener("click", () => {
+      const costValue = parseCurrency(drugCostInput.value);
+      const cycleValue = parseInt(cycleInput.value, 10) || 0;
+ 
+      const statusInput = document.querySelector("input[name='insuranceStatus']:checked");
+      const typeInputs = Array.from(document.querySelectorAll("input[name='insuranceType']:checked"));
+ 
+      if (!costValue || !cycleValue) {
+        alert("약제비와 주기를 입력해주세요.");
+ 
+        if (statusInput) statusInput.checked = false;
+        typeInputs.forEach(input => input.checked = false);
+ 
+        return;
+      }
+ 
+      const total = calculateTotalDrugCost(costValue, cycleValue);
+      const incomeLevel = document.querySelector("input[name='income-range']:checked")?.value;
+      const status = statusInput?.value;
+      const types = typeInputs.map(i => i.value);
+ 
+      if (status === "yes") {
+        addedArea.classList.remove("disabled");
+      }
+ 
+      if (status === "yes" && types.includes("cancer")) {
+        calculateCancerOnly({ status, type: types, incomeLevel, totalCost: total });
+        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+      }
+ 
+      if (status === "yes" && types.includes("indemnity")) {
+        addedArea.classList.remove("disabled");
+        calculateIndemnityOnly({ status, type: types, incomeLevel, totalCost: total });
+        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+      }
+ 
+      if (status === "yes" && types.includes("cancer") && types.includes("indemnity")) {
+        addedArea.classList.remove("disabled");
+        calculateCancerANDindemnity({ status, type: types, incomeLevel, totalCost: total });
+        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+      }
+ 
+      if (status === "no") {
+        addedArea.classList.add("disabled");
+        noInsurance({ status, type: types, incomeLevel, totalCost: total });
+        updateInsuranceSummary({ status, type: types, incomeLevel, totalCost: total });
+      }
+    });
+  });
+}
+ 
+
+
 function openModal() {
   document.getElementById("Modal").style.display = "block";
 }
@@ -721,7 +824,7 @@ function closeModal() {
 }
 
 // Optional: Close modal when clicking outside
-window.onclick = function(event) {
+window.onclick = function (event) {
   const modal = document.getElementById("Modal");
   if (event.target === modal) {
     modal.style.display = "none";
