@@ -612,7 +612,7 @@ function updateInsuranceSummary({ status, type, incomeLevel, totalCost }) {
     noInsuranceCase?.catastrophicPercent,
   );
 
-  bottomBalloon.style.background = "#943F00";
+  bottomBalloon.style.background = "#FF8A38";
 }
 
 function middleIcome(

@@ -47,8 +47,8 @@ body {
 /* Optional: add inner dot */
 .custom-radio input[type="radio"]::after {
   content: "";
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   background: #336228;
   border-radius: 50%;
   position: absolute;
@@ -197,8 +197,8 @@ hr {
 /* Optional: add inner dot */
 .custom-radio input[type="checkbox"]::after {
   content: "";
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   background: #336228;
   border-radius: 50%;
   position: absolute;
@@ -436,7 +436,8 @@ select {
   background-color: #bddba5;
 }
 #bar-outofpocket {
-  background-color: #943F00;
+  background-color: #FF8A38;
+  /* background-color: #943F00; */
   /* background-color: #eb6100; */
 }
 /* .bar-area-vertical {
@@ -495,7 +496,7 @@ select {
 
 .bar-ballon:nth-child(5) {
   background-color: #68b64a;
-  color: white;
+  color: black;
 }
 
 /* JavaScript class */
@@ -624,4 +625,38 @@ select {
     padding: 15px;
     font-size: small;
   }
+
+  .radio-btn-div-one, .radio-btn-div-two{
+    align-items: center;
+    padding: 0px
+  }
+  .custom-radio{
+    align-items: center;
+    font-size: 12px;
+  }
+
+  .custom-radio input[type="checkbox"]{
+    height: 21px;
+    width: 20px;
+  }
+
+  .custom-radio input[type="checkbox"]::after{
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    left: 3px;
+  }
+
+  .custom-radio input[type="radio"]{
+    height: 22px;
+    width: 23px;
+  }
+
+  .custom-radio input[type="radio"]::after{
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    left: 3px;
+  }
 }
+

@@ -16,7 +16,7 @@
       <div class="input-box-div">
         <div>
           <div class="drug-box-title">
-            <h3>Drug Cost</h3>
+            <h3>약제비</h3>
           </div>
           <div class="drug-info-box">
             <input id="drugCost" class="drugCost insur-checker" type="text" placeholder="Enter Drug Cost" />
@@ -24,7 +24,7 @@
         </div>
         <div>
           <div class="drug-box-title">
-            <h3>No of Cycle</h3>
+            <h3>Cycle</h3>
           </div>
           <div class="cycle-info-box">
             <input id="cycle" class="cycle insur-checker" type="number" placeholder="Enter Cycle Count" />
@@ -38,7 +38,7 @@
         <!-- Left Panel -->
         <aside class="left-panel">
           <div class="insurance-box-title">
-            <h3>Private health insurance status</h3>
+            <h3>사보험 여부</h3>
           </div>
           <div class="insurance-status-box">
 
@@ -53,15 +53,14 @@
             <hr>
             <div class="added-check">
               <div class="insurance-type-title">
-                <h3>Type of Private health insurance</h3>
+                <h3>가입된 사보험</h3>
               </div>
               <div class="insurance-type-box">
                 <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType"
-                    value="cancer" id="cancer" />Cancer Insurance <span class="smallFont">(diagnosis benefit)</span>
+                    value="cancer" id="cancer" />보장성 암보험<span class="smallFont">(진단비 기준)</span>
                 </label>
                 <label class="custom-radio"><input type="checkbox" class="insurances insur-checker" name="insuranceType"
-                    value="indemnity" id="indemnity" />indemnity
-                  insurance <span class="smallFont">(reimbursnement type)</span></label>
+                    value="indemnity" id="indemnity" />실손보험</label>
               </div>
             </div>
           </div>
@@ -81,16 +80,17 @@
             <div id="income" class="income-radio-btn-subdiv">
               <div class="radio-btn-div-one">
                 <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
-                    value="below50" id="fifty-percent" /> ≤50%
+                    value="below50" id="fifty-percent" /> 50% 이하
                 </label>
                 <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
-                    value="50to100" id="fifty-hunder-percent" />>50% - ≤100%</label>
+                    value="50to100" id="fifty-hunder-percent" />50% 초과 ~ 100% 이하</label>
               </div>
               <div class="radio-btn-div-two">
                 <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
-                    value="100to200" id="hunder-twohundered-percent" />>100% - ≤200%</label>
+                    value="100to200" id="hunder-twohundered-percent" />100% 초과
+                    ~ 200% 이하</label>
                 <label class="custom-radio"><input type="radio" class="income insur-checker" name="income-range"
-                    value="above200" id="above-twohundered-percent" />>200%</label>
+                    value="above200" id="above-twohundered-percent" />200% 초과</label>
               </div>
             </div>
           </div>
